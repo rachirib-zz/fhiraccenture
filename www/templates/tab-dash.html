@@ -26,12 +26,15 @@
     </div>-->
         <div class="list">
             <div class="item item-divider">
-                <i class="icon ion-person-stalker"></i>
-                Encounter
+                <i class="icon ion-person-stalker"></i> Encounter
             </div>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Patient Visit Number</span>
                 <input type="text" placeholder="Patient Visit Number">
+            </label>
+            <label class="item item-input">
+                <div class="input-label">Admit Date</div>
+                <input type="date" style="text-align: right">
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
@@ -68,7 +71,25 @@
                     <option value="R">R outine</option>
                 </select>
             </label>
-            
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Admit Source
+                </div>
+                <select>
+                    <option value="hosp-trans" selected>Hospital Transference</option>
+                    <option value="emd">Accident/Emergency</option>
+                    <option value="outp">Outpatient</option>
+                    <option value="born">Born hospital</option>
+                    <option value="gp">General Practitioner</option>
+                    <option value="mp">Medical Practitioner/Physician</option>
+                    <option value="nursing">Nursing home</option>
+                    <option value="psych">Psychiatric hospital</option>
+                    <option value="rehab">Rehabilitation facility</option>
+                    <option value="other">Other</option>
+                </select>
+            </label>
+
+
         </div>
     </ion-content>
 </ion-view>
