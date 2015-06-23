@@ -1,6 +1,6 @@
 <ion-view view-title="Dashboard">
-  <ion-content class="padding">
-    <div class="list card">
+    <ion-content>
+        <!--<div class="list card">
       <div class="item item-divider">Recent Updates</div>
       <div class="item item-body">
         <div>
@@ -23,6 +23,52 @@
           You have <b>29</b> meetings on your calendar tomorrow.
         </div>
       </div>
-    </div>
-  </ion-content>
+    </div>-->
+        <div class="list">
+            <div class="item item-divider">
+                <i class="icon ion-person-stalker"></i>
+                Encounter
+            </div>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Patient Visit Number</span>
+                <input type="text" placeholder="Patient Visit Number">
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Encounter Status
+                </div>
+                <select>
+                    <option value="planned" selected>Planned</option>
+                    <option value="arrived">Arrived</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="onleave">On Leave</option>
+                    <option value="finished">Finished</option>
+                    <option value="cancelled">Canceled</option>
+                </select>
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Patient Class
+                </div>
+                <select>
+                    <option value="outpatient" selected>Outpatient</option>
+                    <option value="inpatient">Inpatient</option>
+                    <option value="emergency">Emergency</option>
+                    <option value="other">Other</option>
+                </select>
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Admission Type
+                </div>
+                <select>
+                    <option value="A" selected>Accident</option>
+                    <option value="E">Emergency</option>
+                    <option value="L">Labor and Delivery</option>
+                    <option value="R">R outine</option>
+                </select>
+            </label>
+            
+        </div>
+    </ion-content>
 </ion-view>
