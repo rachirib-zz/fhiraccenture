@@ -1,9 +1,74 @@
 <ion-view view-title="Hospital">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+    <ion-content>
+        <div class="item row">
+            <div class="col" style="text-align:center">
+                <img ng-src="{{hospital.logo}}" style="width: 200px; height: 200px; border-radius: 50%;">
+            </div>
+        </div>
+        <div class="list">
+            <div class="item row item-divider">
+                <div class="col">
+                    Facility
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col">Name: </div>
+                <div class="col">{{hospital.name}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">Phone Number: </div>
+                <div class="col">{{hospital.phoneNumber}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Street: </label>
+                </div>
+                <div class="col">{{hospital.address.street}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Zip Code: </label>
+                </div>
+                <div class="col">{{hospital.address.zip}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>City: </label>
+                </div>
+                <div class="col">{{hospital.address.city}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>State: </label>
+                </div>
+                <div class="col">{{hospital.address.state}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Country: </label>
+                </div>
+                <div class="col">{{hospital.address.country}}</div>
+            </div>
+            <div class="item row item-divider">
+                <div class="col">
+                    Operator Information
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col">User: </div>
+                <div class="col">{{hospital.user}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">Name: </div>
+                <div class="col">{{hospital.operatorName}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">Extension: </div>
+                <div class="col">{{hospital.extensionNumber}}</div>
+            </div>
+
+        </div>
+
+
+    </ion-content>
 </ion-view>

@@ -4,11 +4,100 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{patient.name}}">
-  <ion-content class="padding">
-    <img ng-src="{{patient.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{patient.lastText}}
-    </p>
-  </ion-content>
+<ion-view view-title="{{patient.name.given}} {{patient.name.middle}} {{patient.name.family}}" >
+    <ion-nav-buttons side="secondary">
+      <button class="button button-positive" ng-click="doSomething()" ng-disabled="{{patient.admited}}">
+        Admit
+      </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="item row">
+            <div class="col" style="text-align:center">
+                <img ng-src="{{patient.photo}}" style="width: 200px; height: 200px; border-radius: 50%;">
+            </div>
+        </div>
+        <div class="list">
+            <div class="item row item-divider">
+                <div class="col">
+                    Personal Information
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Name: </label>
+                </div>
+                <div class="col">{{patient.name.given}} {{patient.name.middle}} {{patient.name.family}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Gender: </label>
+                </div>
+                <div class="col">{{patient.gender | genderFilter}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Birthdate: </label>
+                </div>
+                <div class="col">{{patient.birthDate | date: 'yyyy/MM/dd'}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Marital Status: </label>
+                </div>
+                <div class="col">{{patient.maritalStatus | maritalStatusFilter}}</div>
+            </div>
+            <div class="item row item-divider">
+                <div class="col">
+                    Contact Numbers
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Home: </label>
+                </div>
+                <div class="col">{{patient.phoneHomeNumber}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Work: </label>
+                </div>
+                <div class="col">{{patient.phoneWorkNumber}}</div>
+            </div>
+            <div class="item row item-divider">
+                <div class="col">
+                    Address
+                </div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Street: </label>
+                </div>
+                <div class="col">{{patient.address.street}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Zip Code: </label>
+                </div>
+                <div class="col">{{patient.address.zip}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>City: </label>
+                </div>
+                <div class="col">{{patient.address.city}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>State: </label>
+                </div>
+                <div class="col">{{patient.address.state}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label>Country: </label>
+                </div>
+                <div class="col">{{patient.address.country}}</div>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

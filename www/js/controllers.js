@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('fhiraccenture.controllers', [])
 
 
 .controller('PatientsCtrl', function($scope, Patients) {
@@ -20,8 +20,6 @@ angular.module('starter.controllers', [])
   $scope.patient = Patients.get($stateParams.patientId);
 })
 
-.controller('HospitalCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('HospitalCtrl', function($scope, Hospital) {
+  $scope.hospital = Hospital.get();
 });
