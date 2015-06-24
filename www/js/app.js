@@ -58,7 +58,16 @@ angular.module('fhiraccenture', ['ionic', 'fhiraccenture.controllers', 'fhiracce
                 }
             }
         })
-
+        .state('tab.patient-detail.encounter', {
+            url: '/patients/encounter/:patientId',
+            views: {
+                'tab.encounter': {
+                    
+                    templateUrl: 'templates/encounter.html',
+                    controller: 'EncounterCtrl'
+                }
+            }
+        })
     .state('tab.hospital', {
         url: '/hospital',
         views: {

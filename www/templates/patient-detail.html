@@ -6,9 +6,9 @@
 -->
 <ion-view view-title="{{patient.name.given}} {{patient.name.middle}} {{patient.name.family}}" >
     <ion-nav-buttons side="secondary">
-      <button class="button button-positive" ng-click="doSomething()" ng-disabled="{{patient.admited}}">
+      <a class="button button-positive" href="#/tab/patients/encounter/{{patient.id}}" ng-disabled="{{patient.admited}}">
         Admit
-      </button>
+      </a>
     </ion-nav-buttons>
     <ion-content>
         <div class="item row">
