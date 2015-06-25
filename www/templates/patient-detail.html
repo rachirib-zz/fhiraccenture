@@ -26,25 +26,25 @@
                 <div class="col">
                     <label>Name: </label>
                 </div>
-                <div class="col">{{patient.name.given}} {{patient.name.middle}} {{patient.name.family}}</div>
+                <div class="col direction-right">{{patient.name.given}} {{patient.name.middle}} {{patient.name.family}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>Gender: </label>
                 </div>
-                <div class="col">{{patient.gender | genderFilter}}</div>
+                <div class="col direction-right">{{patient.gender | genderFilter}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>Birthdate: </label>
                 </div>
-                <div class="col">{{patient.birthDate | date: 'yyyy/MM/dd'}}</div>
+                <div class="col direction-right">{{patient.birthDate | date: 'yyyy/MM/dd'}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>Marital Status: </label>
                 </div>
-                <div class="col">{{patient.maritalStatus | maritalStatusFilter}}</div>
+                <div class="col direction-right">{{patient.maritalStatus | maritalStatusFilter}}</div>
             </div>
             <div class="item row item-divider">
                 <div class="col">
@@ -55,13 +55,13 @@
                 <div class="col">
                     <label>Home: </label>
                 </div>
-                <div class="col">{{patient.phoneHomeNumber}}</div>
+                <div class="col direction-right">{{patient.phoneHomeNumber}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>Work: </label>
                 </div>
-                <div class="col">{{patient.phoneWorkNumber}}</div>
+                <div class="col direction-right">{{patient.phoneWorkNumber}}</div>
             </div>
             <div class="item row item-divider">
                 <div class="col">
@@ -72,31 +72,31 @@
                 <div class="col">
                     <label>Street: </label>
                 </div>
-                <div class="col">{{patient.address.street}}</div>
+                <div class="col direction-right">{{patient.address.street}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>Zip Code: </label>
                 </div>
-                <div class="col">{{patient.address.zip}}</div>
+                <div class="col direction-right">{{patient.address.zip}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>City: </label>
                 </div>
-                <div class="col">{{patient.address.city}}</div>
+                <div class="col direction-right">{{patient.address.city}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>State: </label>
                 </div>
-                <div class="col">{{patient.address.state}}</div>
+                <div class="col direction-right">{{patient.address.state}}</div>
             </div>
             <div class="item row">
                 <div class="col">
                     <label>Country: </label>
                 </div>
-                <div class="col">{{patient.address.country}}</div>
+                <div class="col direction-right">{{patient.address.country}}</div>
             </div>
         </div>
     </ion-content>

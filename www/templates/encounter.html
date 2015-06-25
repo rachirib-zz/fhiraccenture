@@ -1,66 +1,70 @@
-<ion-view view-title="Encounter">
+<ion-view view-title="Preadmision Form">
     <ion-content>
         <div class="list">
-            <label class="item item-input item-floating-label">
-                <span class="input-label">Patient Visit Number</span>
-                <input type="text" placeholder="Patient Visit Number">
-            </label>
-            <label class="item item-input">
-                <div class="input-label">Admit Date</div>
-                <input type="date" style="text-align: right">
-            </label>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Encounter Status
+            <div class="item row">
+                <div class="col">
+                    <label class="input-label">Patient Identification: </label>
                 </div>
-                <select>
-                    <option value="planned" selected>Planned</option>
-                    <option value="arrived">Arrived</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="onleave">On Leave</option>
-                    <option value="finished">Finished</option>
-                    <option value="cancelled">Canceled</option>
-                </select>
-            </label>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Patient Class
+                <div class="col direction-right">{{patient.id}}</div>
+            </div>
+            <div class="item row">
+                <div class="col">
+                    <label class="input-label">Patient Name: </label>
                 </div>
-                <select>
-                    <option value="outpatient" selected>Outpatient</option>
-                    <option value="inpatient">Inpatient</option>
-                    <option value="emergency">Emergency</option>
-                    <option value="other">Other</option>
-                </select>
-            </label>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Admission Type
+                <div class="col direction-right">{{patient.name.given}} {{patient.name.middle}} {{patient.name.family}}</div>
+            </div>
+
+            <div class="item row">
+                <div class="col">
+                    <label class="input-label">Patient Visit Number:</label>
                 </div>
-                <select>
-                    <option value="A" selected>Accident</option>
-                    <option value="E">Emergency</option>
-                    <option value="L">Labor and Delivery</option>
-                    <option value="R">R outine</option>
-                </select>
-            </label>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Admit Source
+                <div class="col direction-right">1288919</div>
+            </div>
+            <div class="item row item-input item-select">
+                <div class="col">
+                    <label class="input-label">Patient Class:</label>
                 </div>
-                <select>
-                    <option value="hosp-trans" selected>Hospital Transference</option>
-                    <option value="emd">Accident/Emergency</option>
-                    <option value="outp">Outpatient</option>
-                    <option value="born">Born hospital</option>
-                    <option value="gp">General Practitioner</option>
-                    <option value="mp">Medical Practitioner/Physician</option>
-                    <option value="nursing">Nursing home</option>
-                    <option value="psych">Psychiatric hospital</option>
-                    <option value="rehab">Rehabilitation facility</option>
-                    <option value="other">Other</option>
-                </select>
-            </label>
+                <div class="col">
+                    <select>
+                        <option value="outpatient" selected>Outpatient</option>
+                        <option value="inpatient">Inpatient</option>
+                        <option value="emergency">Emergency</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="item row item-input item-select">
+                <div class="col">
+                    <label class="input-label">Admission Type</label>
+                </div>
+                <div class="col">
+                    <select>
+                        <option value="A" selected>Accident</option>
+                        <option value="E">Emergency</option>
+                        <option value="L">Labor and Delivery</option>
+                        <option value="R">R outine</option>
+                    </select>
+                </div>
+            </div>
+            <div class="item row item-input item-select">
+                <div class="col">
+                    <label class="input-label">Admit Source</label>
+                </div>
+                <div class="col">
+                    <select>
+                        <option value="hosp-trans" selected>Hospital Transference</option>
+                        <option value="emd">Accident/Emergency</option>
+                        <option value="outp">Outpatient</option>
+                        <option value="born">Born hospital</option>
+                        <option value="gp">General Practitioner</option>
+                        <option value="mp">Medical Practitioner/Physician</option>
+                        <option value="nursing">Nursing home</option>
+                        <option value="psych">Psychiatric hospital</option>
+                        <option value="rehab">Rehabilitation facility</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>

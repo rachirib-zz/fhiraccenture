@@ -1,5 +1,15 @@
 /* Empty. Add your own CSS if you like */
+
 .admited-icon {
-  color : green;
+    color: green;
 }
 
+.direction-right {
+    direction: rtl;
+}
+
+.direction-right input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
