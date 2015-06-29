@@ -6,7 +6,7 @@
 // 'fhiraccenture.services' is found in services.js
 // 'fhiraccenture.controllers' is found in controllers.js
 // 'fhiraccenture.filters' is found in filters.js
-angular.module('fhiraccenture', ['ionic', 'fhiraccenture.controllers', 'fhiraccenture.services',
+angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'fhiraccenture.controllers', 'fhiraccenture.services',
                                 'fhiraccenture.filters'])
 
 .run(function ($ionicPlatform) {

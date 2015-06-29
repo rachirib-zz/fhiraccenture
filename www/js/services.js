@@ -149,10 +149,42 @@ angular.module('fhiraccenture.services', [])
         user: 'l.smith@hgeorgekeith.com',
         extensionNumber: '9982'
     };
-    
+
     return {
         get: function () {
             return hospital;
+        }
+    }
+})
+
+.factory('Diagnosis', function ($http, $q) {
+
+    var getSnomedDiag = function (query) {
+
+        var deferred = $q.defer();
+
+
+        $http.get('http://browser.ihtsdotools.org/api/snomed/au-edition/v20150531/descriptions?query=problem ' + query + '&limit=10&searchMode=partialMatching&lang=english&statusFilter=activeOnly&skipTo=0&returnLimit=10&semanticFilter=finding&normalize=true').
+        success(function (data, status, headers, config) {
+            //resolve the promise
+            deferred.resolve(data);
+        }).
+        error(function (data, status, headers, config) {
+            deferred.reject('ERROR');
+            return [];
+        });
+
+        //return the promise
+        return deferred.promise;
+    }
+
+
+    return {
+        getQuery: function (query) {
+            if (query.length < 2) {
+                return [];
+            }
+            return getSnomedDiag(query);
         }
     }
 });

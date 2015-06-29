@@ -35,7 +35,7 @@
             </div>
             <div class="item row item-input item-select">
                 <div class="col">
-                    <label class="input-label">Admission Type</label>
+                    <label class="input-label">Admission Type:</label>
                 </div>
                 <div class="col">
                     <select>
@@ -48,7 +48,7 @@
             </div>
             <div class="item row item-input item-select">
                 <div class="col">
-                    <label class="input-label">Admit Source</label>
+                    <label class="input-label">Admit Source:</label>
                 </div>
                 <div class="col">
                     <select>
@@ -63,6 +63,16 @@
                         <option value="rehab">Rehabilitation facility</option>
                         <option value="other">Other</option>
                     </select>
+                </div>
+            </div>
+            <div class="item row item-input">
+                <div class="col">
+                    <label class="input-label">Diagnosis</label>
+                </div>
+                <div class="col direction-right">
+                    <ion-autocomplete ng-model="diagnosis" placeholder="Select Condition" items-method="findDiagnosisMethod(query)" items-method-value-key="matches" item-value-key="conceptId" item-view-value-key="term">
+
+                    </ion-autocomplete>
                 </div>
             </div>
         </div>
