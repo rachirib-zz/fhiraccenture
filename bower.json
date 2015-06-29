@@ -6,5 +6,8 @@
   },
   "dependencies": {
     "ion-autocomplete": "~0.2.2"
+  },
+  "resolutions": {
+    "angular": "1.4.1"
   }
 }

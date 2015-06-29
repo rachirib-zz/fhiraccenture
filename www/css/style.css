@@ -5,11 +5,15 @@
 }
 
 .direction-right {
-    direction: rtl;
+    text-align: right;
 }
 
 .direction-right input[type="date"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+.tabs {
+    height: 75px;
 }

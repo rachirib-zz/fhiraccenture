@@ -20,61 +20,78 @@
                 </div>
                 <div class="col direction-right">1288919</div>
             </div>
-            <div class="item row item-input item-select">
-                <div class="col">
-                    <label class="input-label">Patient Class:</label>
+            <form name="admitForm" novalidate ng-submit="admitPatient(admitForm)">
+                <div class="item row item-input item-select">
+                    <div class="col">
+                        <label class="input-label">Patient Class:</label>
+                    </div>
+                    <div class="col">
+                        <select>
+                            <option value="outpatient" selected>Outpatient</option>
+                            <option value="inpatient">Inpatient</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <select>
-                        <option value="outpatient" selected>Outpatient</option>
-                        <option value="inpatient">Inpatient</option>
-                        <option value="emergency">Emergency</option>
-                        <option value="other">Other</option>
-                    </select>
+                <div class="item row item-input item-select">
+                    <div class="col">
+                        <label class="input-label">Admission Type:</label>
+                    </div>
+                    <div class="col">
+                        <select>
+                            <option value="A" selected>Accident</option>
+                            <option value="E">Emergency</option>
+                            <option value="L">Labor and Delivery</option>
+                            <option value="R">R outine</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="item row item-input item-select">
-                <div class="col">
-                    <label class="input-label">Admission Type:</label>
+                <div class="item row item-input item-select">
+                    <div class="col">
+                        <label class="input-label">Admit Source:</label>
+                    </div>
+                    <div class="col">
+                        <select>
+                            <option value="hosp-trans" selected>Hospital Transference</option>
+                            <option value="emd">Accident/Emergency</option>
+                            <option value="outp">Outpatient</option>
+                            <option value="born">Born hospital</option>
+                            <option value="gp">General Practitioner</option>
+                            <option value="mp">Medical Practitioner/Physician</option>
+                            <option value="nursing">Nursing home</option>
+                            <option value="psych">Psychiatric hospital</option>
+                            <option value="rehab">Rehabilitation facility</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <select>
-                        <option value="A" selected>Accident</option>
-                        <option value="E">Emergency</option>
-                        <option value="L">Labor and Delivery</option>
-                        <option value="R">R outine</option>
-                    </select>
+                <div class="item row item-input">
+                    <div class="col">
+                        <label class="input-label" ng-class="{ 'has-error-lr' : admitForm.diagnosis_name.$invalid  && admitForm.$submitted, 'valid-lr' : admitForm.diagnosis_name.$valid  && admitForm.$submitted}">Pre-Diagnosis: </label>
+                    </div>
+                    <div class="col direction-right">
+                        <ion-autocomplete style="text-align: right" name="diagnosis_name" ng-model="diagnosis" placeholder="Select Condition.." items-method="findDiagnosisMethod(query)" items-method-value-key="matches" item-value-key="conceptId" item-view-value-key="term" required >
+                        </ion-autocomplete>
+                        <div class="form-errors"  
+                           ng-show="admitForm.diagnosis_name.$error && admitForm.$submitted"
+                           ng-messages="admitForm.diagnosis_name.$error">
+                            <div ng-messages-include="templates/form-errors.html"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="item row item-input item-select">
-                <div class="col">
-                    <label class="input-label">Admit Source:</label>
-                </div>
-                <div class="col">
-                    <select>
-                        <option value="hosp-trans" selected>Hospital Transference</option>
-                        <option value="emd">Accident/Emergency</option>
-                        <option value="outp">Outpatient</option>
-                        <option value="born">Born hospital</option>
-                        <option value="gp">General Practitioner</option>
-                        <option value="mp">Medical Practitioner/Physician</option>
-                        <option value="nursing">Nursing home</option>
-                        <option value="psych">Psychiatric hospital</option>
-                        <option value="rehab">Rehabilitation facility</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
-            <div class="item row item-input">
-                <div class="col">
-                    <label class="input-label">Diagnosis</label>
-                </div>
-                <div class="col direction-right">
-                    <ion-autocomplete ng-model="diagnosis" placeholder="Select Condition" items-method="findDiagnosisMethod(query)" items-method-value-key="matches" item-value-key="conceptId" item-view-value-key="term">
+                
+                
 
-                    </ion-autocomplete>
+                <div class="item row item-input">
+                    <div class="col">
+                        <button type="submit" class="button button-block button-positive">
+                            Admit Pacient
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
+
         </div>
     </ion-content>
 </ion-view>

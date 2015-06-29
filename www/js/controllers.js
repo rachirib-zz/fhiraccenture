@@ -20,7 +20,7 @@ angular.module('fhiraccenture.controllers', [])
     $scope.patient = Patients.get($stateParams.patientId);
 })
 
-.controller('EncounterCtrl', function ($scope, $stateParams, Patients, Hospital, Diagnosis) {
+.controller('EncounterCtrl', function ($scope, $state, $stateParams, Patients, Hospital, Diagnosis) {
     $scope.hospital = Hospital.get();
     $scope.patient = Patients.get($stateParams.patientId);
     $scope.diagnosis;
@@ -28,6 +28,13 @@ angular.module('fhiraccenture.controllers', [])
     $scope.findDiagnosisMethod = function (query) {
         var data = Diagnosis.getQuery(query);
         return data;
+    }
+    
+    $scope.admitPatient = function(form){
+        if(form.$valid) {
+            console.log('Patient Admitted!');
+            $state.go('tab.patients');
+        }
     }
 })
 
