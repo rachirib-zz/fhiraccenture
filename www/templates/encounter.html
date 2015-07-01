@@ -71,11 +71,27 @@
                         <label class="input-label" ng-class="{ 'has-error-lr' : admitForm.diagnosis_name.$invalid  && admitForm.$submitted, 'valid-lr' : admitForm.diagnosis_name.$valid  && admitForm.$submitted}">Pre-Diagnosis: </label>
                     </div>
                     <div class="col direction-right">
-                        <ion-autocomplete style="text-align: right" name="diagnosis_name" ng-model="diagnosis" placeholder="Select Condition.." items-method="findDiagnosisMethod(query)" items-method-value-key="matches" item-value-key="conceptId" item-view-value-key="term" required >
+                        <ion-autocomplete style="text-align: right" name="diagnosis_name" ng-model="diagnosis" placeholder="Select Condition.." items-method="findDiagnosisMethod(query)" items-method-value-key="matches" item-value-key="conceptId" item-view-value-key="term"
+required >
                         </ion-autocomplete>
                         <div class="form-errors"  
                            ng-show="admitForm.diagnosis_name.$error && admitForm.$submitted"
                            ng-messages="admitForm.diagnosis_name.$error">
+                            <div ng-messages-include="templates/form-errors.html"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item row item-input">
+                    <div class="col">
+                        <label class="input-label" ng-class="{ 'has-error-lr' : admitForm.practitioner_name.$invalid  && admitForm.$submitted, 'valid-lr' : admitForm.practitioner_name.$valid  && admitForm.$submitted}">Attending Doctor: </label>
+                    </div>
+                    <div class="col direction-right">
+                        <ion-autocomplete style="text-align: right" name="practitioner_name" ng-model="doctor" placeholder="Select Practitioner.." items-method="findDoctorMethod(query)" item-value-key="id" item-view-value-key="fullName"
+required >
+                        </ion-autocomplete>
+                        <div class="form-errors"  
+                           ng-show="admitForm.practitioner_name.$error && admitForm.$submitted"
+                           ng-messages="admitForm.practitioner_name.$error">
                             <div ng-messages-include="templates/form-errors.html"></div>
                         </div>
                     </div>

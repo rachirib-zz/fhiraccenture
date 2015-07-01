@@ -5,7 +5,7 @@ angular.module('fhiraccenture.services', [])
 
     // Some fake testing data
     var patients = [{
-        id: 0,
+        id: 192830231,
         name: {
             given: 'Robbert',
             middle: '',
@@ -14,6 +14,7 @@ angular.module('fhiraccenture.services', [])
         phoneHomeNumber: '(900)485-5344',
         phoneWorkNumber: '(900)583-1221',
         gender: 'M',
+        genderFhir: 'male',
         birthDate: '315493200000',
         maritalStatus: 'M',
         address: {
@@ -26,7 +27,7 @@ angular.module('fhiraccenture.services', [])
         admited: false,
         photo: 'http://news.makemeheal.com/wp-content/uploads/2013/11/hugh-jackman-plastic-surgery.jpg'
   }, {
-        id: 1,
+        id: 812638120,
         name: {
             given: 'Daniel',
             middle: '',
@@ -35,6 +36,7 @@ angular.module('fhiraccenture.services', [])
         phoneHomeNumber: '(900)425-5344',
         phoneWorkNumber: '(900)563-1223',
         gender: 'M',
+        genderFhir: 'male',
         birthDate: '1318078800000',
         maritalStatus: 'S',
         address: {
@@ -47,7 +49,7 @@ angular.module('fhiraccenture.services', [])
         admited: false,
         photo: 'http://dirtydiaperlaundry.com/wp-content/uploads/2013/05/photo-115-600x600.jpg'
   }, {
-        id: 2,
+        id: 918292791,
         name: {
             given: 'Adam',
             middle: '',
@@ -56,6 +58,7 @@ angular.module('fhiraccenture.services', [])
         phoneHomeNumber: '(900)443-5344',
         phoneWorkNumber: '(900)573-1231',
         gender: 'M',
+        genderFhir: 'male',
         birthDate: '657464400000',
         maritalStatus: 'S',
         address: {
@@ -68,7 +71,7 @@ angular.module('fhiraccenture.services', [])
         admited: true,
         photo: 'http://www.steptoofar.com/wp-content/uploads/2013/06/Headshot2.jpg'
   }, {
-        id: 3,
+        id: 176381093,
         name: {
             given: 'Trevor',
             middle: 'D.',
@@ -77,6 +80,7 @@ angular.module('fhiraccenture.services', [])
         phoneHomeNumber: '(900)443-4344',
         phoneWorkNumber: '(900)523-1211',
         gender: 'M',
+        genderFhir: 'male',
         birthDate: '157726800000',
         maritalStatus: 'W',
         address: {
@@ -89,7 +93,7 @@ angular.module('fhiraccenture.services', [])
         admited: false,
         photo: 'http://cdn.shape.com/sites/shape.com/files/styles/600x600/public/8.-woody-harrelson-420x420.jpg?itok=jjuqy42e'
   }, {
-        id: 4,
+        id: 856392639,
         name: {
             given: 'Melissa',
             middle: '',
@@ -98,6 +102,7 @@ angular.module('fhiraccenture.services', [])
         phoneHomeNumber: '(900)443-6324',
         phoneWorkNumber: '(900)523-1311',
         gender: 'F',
+        genderFhir: 'female',
         birthDate: '24242400000',
         maritalStatus: 'D',
         address: {
@@ -134,7 +139,7 @@ angular.module('fhiraccenture.services', [])
 
     // Some fake testing data
     var hospital = {
-        id: 123312,
+        id: 'SNGEORGKEITH',
         name: 'Hospital St. George Keith',
         phoneNumber: '(900)485-5344',
         address: {
@@ -145,7 +150,11 @@ angular.module('fhiraccenture.services', [])
             country: 'Australia'
         },
         logo: 'https://hirereach.ca/employer/logos/20150129085638.jpeg',
-        operatorName: 'Linsey Smith',
+        operatorName: {
+            family: 'Smith',
+            given: 'Linsey',
+        },
+        employedid: '123141231',
         user: 'l.smith@hgeorgekeith.com',
         extensionNumber: '9982'
     };
@@ -185,6 +194,218 @@ angular.module('fhiraccenture.services', [])
                 return [];
             }
             return getSnomedDiag(query);
+        }
+    }
+})
+
+.factory('Practitioner', function ($http, $q) {
+
+    return {
+        getPractitioner: function (query) {
+            var practitioners = [{
+                id: 812628371,
+                name: {
+                    prefix: 'MD',
+                    given: 'Tom',
+                    middle: 'Julious',
+                    family: 'Hardy'
+                },
+                fullName: 'MD. Tom Julios Hardy'
+  }, {
+                id: 231451232,
+                name: {
+                    prefix: 'MD',
+                    given: 'Sophie',
+                    middle: '',
+                    family: 'Robertson'
+                },
+                fullName: 'MD. Sophie Robertson'
+  }, {
+                id: 957007212,
+                name: {
+                    given: 'Lucas',
+                    middle: '',
+                    family: 'Patty',
+
+                },
+                fullName: 'MD. Lucas Patty'
+  }];
+
+
+            return practitioners.filter(function (el) {
+                return el.fullName.indexOf(query) > -1;
+            });
+        }
+    }
+})
+
+.factory('Encounter', function ($http, $q) {
+
+    var millisDateFhir = function(dateString){
+        
+        var date  = new Date(parseInt(dateString));
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        
+        return year+'-'+monthIndex+'-'+day;
+    }
+    
+    return {
+        admitPatient: function (patient, hospital, practitioner, diagnosis) {
+            var patientFhir = {
+                "resourceType": "Patient",
+                "id": "1",
+                "identifier": [
+                    {
+                        "system": "http://hl7.org/fhir/v2/0203",
+                        "value": patient.id
+                            }
+                        ],
+                "name": [
+                    {
+                        "family": [
+                                    patient.name.family
+                                ],
+                        "given": [
+                                    patient.name.given,
+                                    patient.name.middle
+                                ]
+                            }
+                        ],
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": patient.phoneHomeNumber,
+                        "use": "home"
+                            },
+                    {
+                        "system": "phone",
+                        "value": patient.phoneWorkNumber,
+                        "use": "work"
+                            }
+                        ],
+                "gender": patient.genderFhir,
+                "birthDate": millisDateFhir(patient.birthDate),
+                "deceasedBoolean": false,
+                "address": [
+                    {
+                        "line": [
+                                    patient.street,
+                                    patient.zip
+                                ],
+                        "city": patient.city,
+                        "state": patient.state,
+                        "country": patient.country
+                            }
+                        ],
+                "maritalStatus": {
+                    "coding": [
+                        {
+                            "system": "http://hl7.org/fhir/v2/0002",
+                            "code": patient.maritalStatus
+                                }
+                            ]
+                }
+            }
+            var operatorFhir = {
+                        "resourceType":"Practitioner",
+                        "id":"1",
+                        "identifier":[
+                            {
+                                "system":"http://hl7.org/fhir/v2/0203",
+                                "value":hospital.employedid
+                            }
+                        ],
+                        "name":{
+                            "family":[
+                                hospital.operatorName.family
+                            ],
+                            "given":[
+                                hospital.operatorName.given
+                            ]
+                        },
+                        "practitionerRole":[
+                            {
+                                "role":{
+                                    "coding":[
+                                        {
+                                            "system":"http://hl7.org/fhir/practitioner-role",
+                                            "code":"ict"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+            var practitionerFhir = {
+                        "resourceType":"Practitioner",
+                        "id":"3",
+                        "identifier":[
+                            {
+                                "system":"http://hl7.org/fhir/v2/0203",
+                                "value":practitioner.id
+                            }
+                        ],
+                        "name":{
+                            "family":[
+                                practitioner.name.family
+                            ],
+                            "given":[
+                                practitioner.name.given
+                            ]
+                        },
+                        "practitionerRole":[
+                            {
+                                "role":{
+                                    "coding":[
+                                        {
+                                            "system":"http://hl7.org/fhir/practitioner-role",
+                                            "code":"doctor"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+            var messageFhir = {
+            "resource":{
+                "resourceType":"MessageHeader",
+                "contained":[
+                    operatorFhir,
+                ],
+                "identifier":"000001",
+                "timestamp":"1996-01-06T10:00:00.000+11:00",
+                "event":{
+                    "system":"http://hl7.org/fhir/v2/0003",
+                    "code":"A05"
+                },
+                "source":{
+                    "name":"REGADT",
+                    "software":"MCM",
+                    "version":"2.3",
+                    "endpoint":"192.168.0.1"
+                },
+                "destination":[
+                    {
+                        "name":"IFENG",
+                        "endpoint":"192.168.0.1"
+                    }
+                ],
+                "enterer":{
+                    "reference":"#1"
+                },
+                "reason":{
+                    "coding":[
+                        {
+                            "code":"01"
+                        }
+                    ]
+                }
+            }
+        }
+            
+            console.log(messageFhir);
         }
     }
 });

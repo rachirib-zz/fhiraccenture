@@ -2,13 +2,6 @@ angular.module('fhiraccenture.controllers', [])
 
 
 .controller('PatientsCtrl', function ($scope, Patients) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
 
     $scope.patients = Patients.all();
     $scope.remove = function (patient) {
@@ -20,18 +13,24 @@ angular.module('fhiraccenture.controllers', [])
     $scope.patient = Patients.get($stateParams.patientId);
 })
 
-.controller('EncounterCtrl', function ($scope, $state, $stateParams, Patients, Hospital, Diagnosis) {
+.controller('EncounterCtrl', function ($scope, $state, $stateParams, Patients, Hospital, Diagnosis, Encounter, Practitioner) {
     $scope.hospital = Hospital.get();
     $scope.patient = Patients.get($stateParams.patientId);
     $scope.diagnosis;
+    $scope.doctor;
 
     $scope.findDiagnosisMethod = function (query) {
         var data = Diagnosis.getQuery(query);
         return data;
     }
-    
-    $scope.admitPatient = function(form){
-        if(form.$valid) {
+    $scope.findDoctorMethod = function (query) {
+        var data = Practitioner.getPractitioner(query);
+        return data;
+    }
+
+    $scope.admitPatient = function (form) {
+        if (form.$valid) {
+            Encounter.admitPatient($scope.patient, $scope.hospital, form.practitioner_name.$viewValue, form.diagnosis_name.$viewValue);
             console.log('Patient Admitted!');
             $state.go('tab.patients');
         }
