@@ -241,18 +241,47 @@ angular.module('fhiraccenture.services', [])
 
 .factory('Encounter', function ($http, $q) {
 
-    var millisDateFhir = function(dateString){
-        
-        var date  = new Date(parseInt(dateString));
+    var millisDateFhir = function (dateString) {
+
+        var date = new Date(parseInt(dateString));
         var day = date.getDate();
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
-        
-        return year+'-'+monthIndex+'-'+day;
+
+        return year + '-' + monthIndex + '-' + day;
     }
     
+    var admitPatient = function (fhirmessage) {
+
+        var deferred = $q.defer();
+
+        var req = {
+         method: 'POST',
+         url: 'http://54.153.166.126:8080/fhir/admit',
+         headers: {
+           'Content-Type': 'application/json'
+         },
+         data: fhirmessage
+        }
+        
+        
+        $http(req).
+        success(function (data, status, headers, config) {
+            //resolve the promise
+            deferred.resolve(data);
+        }).
+        error(function (data, status, headers, config) {
+            deferred.reject('ERROR');
+            return [];
+        });
+
+        //return the promise
+        return deferred.promise;
+    }
+
     return {
-        admitPatient: function (patient, hospital, practitioner, diagnosis) {
+        admitPatient: function (patient, hospital, practitioner, diagnosis, admissionType, patientClass) {
+
             var patientFhir = {
                 "resourceType": "Patient",
                 "id": "1",
@@ -291,12 +320,12 @@ angular.module('fhiraccenture.services', [])
                 "address": [
                     {
                         "line": [
-                                    patient.street,
-                                    patient.zip
+                                    patient.address.street,
+                                    patient.address.zip
                                 ],
-                        "city": patient.city,
-                        "state": patient.state,
-                        "country": patient.country
+                        "city": patient.address.city,
+                        "state": patient.address.state,
+                        "country": patient.address.country
                             }
                         ],
                 "maritalStatus": {
@@ -309,103 +338,191 @@ angular.module('fhiraccenture.services', [])
                 }
             }
             var operatorFhir = {
-                        "resourceType":"Practitioner",
-                        "id":"1",
-                        "identifier":[
-                            {
-                                "system":"http://hl7.org/fhir/v2/0203",
-                                "value":hospital.employedid
+                "resourceType": "Practitioner",
+                "id": "1",
+                "identifier": [
+                    {
+                        "system": "http://hl7.org/fhir/v2/0203",
+                        "value": hospital.employedid
                             }
                         ],
-                        "name":{
-                            "family":[
+                "name": {
+                    "family": [
                                 hospital.operatorName.family
                             ],
-                            "given":[
+                    "given": [
                                 hospital.operatorName.given
                             ]
-                        },
-                        "practitionerRole":[
-                            {
-                                "role":{
-                                    "coding":[
-                                        {
-                                            "system":"http://hl7.org/fhir/practitioner-role",
-                                            "code":"ict"
+                },
+                "practitionerRole": [
+                    {
+                        "role": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/practitioner-role",
+                                    "code": "ict"
                                         }
                                     ]
-                                }
+                        }
                             }
                         ]
-                    }
+            }
             var practitionerFhir = {
-                        "resourceType":"Practitioner",
-                        "id":"3",
-                        "identifier":[
-                            {
-                                "system":"http://hl7.org/fhir/v2/0203",
-                                "value":practitioner.id
+                "resourceType": "Practitioner",
+                "id": "3",
+                "identifier": [
+                    {
+                        "system": "http://hl7.org/fhir/v2/0203",
+                        "value": practitioner.id
                             }
                         ],
-                        "name":{
-                            "family":[
+                "name": {
+                    "family": [
                                 practitioner.name.family
                             ],
-                            "given":[
+                    "given": [
                                 practitioner.name.given
                             ]
-                        },
-                        "practitionerRole":[
-                            {
-                                "role":{
-                                    "coding":[
-                                        {
-                                            "system":"http://hl7.org/fhir/practitioner-role",
-                                            "code":"doctor"
+                },
+                "practitionerRole": [
+                    {
+                        "role": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/practitioner-role",
+                                    "code": "doctor"
                                         }
                                     ]
-                                }
+                        }
                             }
                         ]
-                    }
+            }
             var messageFhir = {
-            "resource":{
-                "resourceType":"MessageHeader",
-                "contained":[
+                "resource": {
+                    "resourceType": "MessageHeader",
+                    "contained": [
                     operatorFhir,
                 ],
-                "identifier":"000001",
-                "timestamp":"1996-01-06T10:00:00.000+11:00",
-                "event":{
-                    "system":"http://hl7.org/fhir/v2/0003",
-                    "code":"A05"
-                },
-                "source":{
-                    "name":"REGADT",
-                    "software":"MCM",
-                    "version":"2.3",
-                    "endpoint":"192.168.0.1"
-                },
-                "destination":[
-                    {
-                        "name":"IFENG",
-                        "endpoint":"192.168.0.1"
+                    "identifier": "000001",
+                    "timestamp": new Date().toLocaleTimeString(),
+                    "event": {
+                        "system": "http://hl7.org/fhir/v2/0003",
+                        "code": "A05"
+                    },
+                    "source": {
+                        "name": "QLD_Demo_Mobile",
+                        "software": "MCM",
+                        "version": "1.0",
+                        "endpoint": "54.153.166.126"
+                    },
+                    "destination": [
+                        {
+                            "name": "QLD_Demo_Backend",
+                            "endpoint": "54.153.166.126"
                     }
                 ],
-                "enterer":{
-                    "reference":"#1"
-                },
-                "reason":{
-                    "coding":[
-                        {
-                            "code":"01"
+                    "enterer": {
+                        "reference": "#1"
+                    },
+                    "reason": {
+                        "coding": [
+                            {
+                                "code": "01"
                         }
                     ]
+                    }
                 }
             }
-        }
-            
-            console.log(messageFhir);
+            var encounterFhir = {
+                "resourceType": "Encounter",
+                "id": "2",
+                "identifier": [
+                    {
+                        "system": "http://hl7.org/fhir/v2/0203",
+                        "value": "1231"
+                            }
+                        ],
+                "status": "planned",
+                "class": patientClass,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/v2/0007",
+                                "code": admissionType
+                                    }
+                                ]
+                            }
+                        ],
+                "patient": {
+                    "reference": "#1"
+                },
+                "participant": [
+                    {
+                        "individual": {
+                            "reference": "#3"
+                        }
+                            }
+                        ],
+                "reason": [
+                    {
+                        "coding": [
+                            {
+                                "code": "01"
+                                    }
+                                ]
+                            }
+                        ],
+                "serviceProvider": {
+                    "reference": hospital.id
+                }
+            }
+            var conditionFhir = {
+                "resource": {
+                    "resourceType": "Condition",
+                    "contained": [
+                    patientFhir,
+                    encounterFhir,
+                    practitionerFhir
+                ],
+                    "identifier": [
+                        {
+                            "value": "1"
+                    }
+                ],
+                    "patient": {
+                        "reference": "#1"
+                    },
+                    "encounter": {
+                        "reference": "#2"
+                    },
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": diagnosis.conceptId
+                        }
+                    ]
+                    },
+                    "category": {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/condition-category",
+                                "code": "diagnosis"
+                        }
+                    ]
+                    },
+                    "clinicalStatus": "provisional"
+                }
+            }
+            var bundleFhir = {
+                "resourceType": "Bundle",
+                "id": new Date().getTime(),
+                "type": "message",
+                "entry": [messageFhir,conditionFhir]
+            }
+            console.log(JSON.stringify(bundleFhir));
+            return admitPatient(JSON.stringify(bundleFhir));
         }
     }
 });

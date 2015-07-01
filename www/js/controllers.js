@@ -18,6 +18,8 @@ angular.module('fhiraccenture.controllers', [])
     $scope.patient = Patients.get($stateParams.patientId);
     $scope.diagnosis;
     $scope.doctor;
+    $scope.admissionType = "A";
+    $scope.patientClass = "outpatient";
 
     $scope.findDiagnosisMethod = function (query) {
         var data = Diagnosis.getQuery(query);
@@ -30,9 +32,15 @@ angular.module('fhiraccenture.controllers', [])
 
     $scope.admitPatient = function (form) {
         if (form.$valid) {
-            Encounter.admitPatient($scope.patient, $scope.hospital, form.practitioner_name.$viewValue, form.diagnosis_name.$viewValue);
-            console.log('Patient Admitted!');
-            $state.go('tab.patients');
+            Encounter.admitPatient($scope.patient, $scope.hospital, form.practitioner_name.$viewValue, form.diagnosis_name.$viewValue, $scope.admissionType, $scope.patientClass).then(function (response) {
+                console.log(response);
+                console.log('Patient Admitted!');
+                $state.go('tab.patients');
+            }, function (reason) {
+                alert('Failed: ' + reason);
+            });;
+
+
         }
     }
 })
