@@ -6,6 +6,9 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var replace = require('replace');
+var replaceFiles = ['./www/js/app.js'];
+
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -50,3 +53,23 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+gulp.task('add-proxy', function() {
+  return replace({
+    regex: "http://54.153.166.126:8080/fhir",
+    replacement: "http://localhost:8100/fhir",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false,
+  });
+})
+
+gulp.task('remove-proxy', function() {
+  return replace({
+    regex: "http://localhost:8100/fhir",
+    replacement: "http://54.153.166.126:8080/fhir",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false,
+  });
+})

@@ -23,6 +23,10 @@ angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ngMessages', 'fhi
     });
 })
 
+.constant('ApiEndpoint', {
+  url: 'http://54.153.166.126:8080/fhir'
+})
+
 .config(function ($stateProvider, $urlRouterProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
@@ -62,21 +66,21 @@ angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ngMessages', 'fhi
             url: '/patients/encounter/:patientId',
             views: {
                 'tab-patients': {
-                    
+
                     templateUrl: 'templates/encounter.html',
                     controller: 'EncounterCtrl'
                 }
             }
         })
-    .state('tab.hospital', {
-        url: '/hospital',
-        views: {
-            'tab-hospital': {
-                templateUrl: 'templates/tab-hospital.html',
-                controller: 'HospitalCtrl'
+        .state('tab.hospital', {
+            url: '/hospital',
+            views: {
+                'tab-hospital': {
+                    templateUrl: 'templates/tab-hospital.html',
+                    controller: 'HospitalCtrl'
+                }
             }
-        }
-    });
+        });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/patients');

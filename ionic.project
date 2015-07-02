@@ -1,4 +1,10 @@
 {
   "name": "fhiraccenture",
-  "app_id": "c2d7bfa0"
+  "app_id": "c2d7bfa0",
+  "proxies": [
+    {
+      "path": "/fhir",
+      "proxyUrl": "http://54.153.166.126:8080/fhir"
+    }
+  ]
 }

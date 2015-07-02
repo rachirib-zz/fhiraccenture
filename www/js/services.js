@@ -239,7 +239,7 @@ angular.module('fhiraccenture.services', [])
     }
 })
 
-.factory('Encounter', function ($http, $q) {
+.factory('Encounter', function ($http, $q, ApiEndpoint) {
 
     var millisDateFhir = function (dateString) {
 
@@ -250,21 +250,21 @@ angular.module('fhiraccenture.services', [])
 
         return year + '-' + monthIndex + '-' + day;
     }
-    
+
     var admitPatient = function (fhirmessage) {
 
         var deferred = $q.defer();
 
         var req = {
-         method: 'POST',
-         url: 'http://54.153.166.126:8080/fhir/admit',
-         headers: {
-           'Content-Type': 'application/json'
-         },
-         data: fhirmessage
+            method: 'POST',
+            url: ApiEndpoint.url + '/admit',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: fhirmessage
         }
-        
-        
+
+
         $http(req).
         success(function (data, status, headers, config) {
             //resolve the promise
@@ -519,9 +519,11 @@ angular.module('fhiraccenture.services', [])
                 "resourceType": "Bundle",
                 "id": new Date().getTime(),
                 "type": "message",
-                "entry": [messageFhir,conditionFhir]
+                "entry": [messageFhir, conditionFhir]
             }
+
             console.log(JSON.stringify(bundleFhir));
+            
             return admitPatient(JSON.stringify(bundleFhir));
         }
     }
