@@ -6,7 +6,7 @@
 // 'fhiraccenture.services' is found in services.js
 // 'fhiraccenture.controllers' is found in controllers.js
 // 'fhiraccenture.filters' is found in filters.js
-angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ngMessages', 'fhiraccenture.controllers', 'fhiraccenture.services',
+angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ionic.utils', 'ngMessages', 'fhiraccenture.controllers', 'fhiraccenture.services',
                                 'fhiraccenture.filters'])
 
 .run(function ($ionicPlatform) {
@@ -22,9 +22,8 @@ angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ngMessages', 'fhi
         }
     });
 })
-
 .constant('ApiEndpoint', {
-  url: 'http://54.153.166.126:8080/fhir'
+    url: 'http://54.153.166.126:8080/fhir'
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {

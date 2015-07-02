@@ -1,6 +1,6 @@
 angular.module('fhiraccenture.services', [])
 
-.factory('Patients', function () {
+.factory('Patients', function ($localstorage) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
@@ -68,7 +68,7 @@ angular.module('fhiraccenture.services', [])
             state: 'QLD',
             country: 'Australia'
         },
-        admited: true,
+        admited: false,
         photo: 'http://www.steptoofar.com/wp-content/uploads/2013/06/Headshot2.jpg'
   }, {
         id: 176381093,
@@ -114,7 +114,15 @@ angular.module('fhiraccenture.services', [])
         },
         admited: false,
         photo: 'https://nostalgiapie.files.wordpress.com/2014/04/a783c025-1dc9-417e-8214-843eb3bc922a-443-000001b2de0f9107.jpg?w=645'
-  }];
+  }]
+
+    if ($localstorage.getObject('patients').length != undefined) {
+        patients = $localstorage.getObject('patients');
+    }else{
+        $localstorage.setObject('patients',patients);
+    }
+
+
 
     return {
         all: function () {
@@ -130,7 +138,26 @@ angular.module('fhiraccenture.services', [])
                 }
             }
             return null;
+        },
+        admitPatient: function (patientId) {
+            for (var i = 0; i < patients.length; i++) {
+                if (patients[i].id === parseInt(patientId)) {
+
+                    patients[i].admited = true;
+                    break;
+                }
+            }
+            //$localstorage.setObject('patients', patients);
+        },
+        dismissPatients: function () {
+            for (var i = 0; i < patients.length; i++) {
+
+                patients[i].admited = false;
+            }
         }
+
+        //$localstorage.setObject('patients', defaultPatients);
+
     };
 })
 
@@ -171,8 +198,6 @@ angular.module('fhiraccenture.services', [])
     var getSnomedDiag = function (query) {
 
         var deferred = $q.defer();
-
-
         $http.get('http://browser.ihtsdotools.org/api/snomed/au-edition/v20150531/descriptions?query=problem ' + query + '&limit=10&searchMode=partialMatching&lang=english&statusFilter=activeOnly&skipTo=0&returnLimit=10&semanticFilter=finding&normalize=true').
         success(function (data, status, headers, config) {
             //resolve the promise
@@ -523,7 +548,7 @@ angular.module('fhiraccenture.services', [])
             }
 
             console.log(JSON.stringify(bundleFhir));
-            
+
             return admitPatient(JSON.stringify(bundleFhir));
         }
     }

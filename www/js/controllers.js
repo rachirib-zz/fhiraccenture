@@ -33,8 +33,8 @@ angular.module('fhiraccenture.controllers', [])
     $scope.admitPatient = function (form) {
         if (form.$valid) {
             Encounter.admitPatient($scope.patient, $scope.hospital, form.practitioner_name.$viewValue, form.diagnosis_name.$viewValue, $scope.admissionType, $scope.patientClass).then(function (response) {
-                console.log(response);
-                console.log('Patient Admitted!');
+
+                Patients.admitPatient($stateParams.patientId);
                 $state.go('tab.patients');
             }, function (reason) {
                 alert('Failed: ' + reason);
@@ -45,6 +45,12 @@ angular.module('fhiraccenture.controllers', [])
     }
 })
 
-.controller('HospitalCtrl', function ($scope, Hospital) {
+.controller('HospitalCtrl', function ($scope, $state, Hospital, Patients) {
     $scope.hospital = Hospital.get();
+    $scope.dismissPatients = function(){
+        Patients.dismissPatients();
+        $state.go('tab.patients');
+    }
+    
+    
 });
