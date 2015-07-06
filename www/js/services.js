@@ -286,6 +286,7 @@ angular.module('fhiraccenture.services', [])
             headers: {
                 'Content-Type': 'application/json'
             },
+            timeout: 10000,
             data: fhirmessage
         }
 
@@ -296,7 +297,7 @@ angular.module('fhiraccenture.services', [])
             deferred.resolve(data);
         }).
         error(function (data, status, headers, config) {
-            deferred.reject('ERROR');
+            deferred.reject('Unable to comunicate with the server');
             return [];
         });
 
@@ -547,7 +548,6 @@ angular.module('fhiraccenture.services', [])
                 "entry": [messageFhir, conditionFhir]
             }
 
-            console.log(JSON.stringify(bundleFhir));
 
             return admitPatient(JSON.stringify(bundleFhir));
         }

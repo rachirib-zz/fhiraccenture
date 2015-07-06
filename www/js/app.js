@@ -6,25 +6,36 @@
 // 'fhiraccenture.services' is found in services.js
 // 'fhiraccenture.controllers' is found in controllers.js
 // 'fhiraccenture.filters' is found in filters.js
-angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ionic.utils', 'ngMessages', 'fhiraccenture.controllers', 'fhiraccenture.services',
+angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ionic.utils', 'ngMessages', 'fhiraccenture.controllers', 'fhiraccenture.services', 'ionic.service.core',
                                 'fhiraccenture.filters'])
 
 .run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function () {
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
-        if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        }
-        if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            StatusBar.styleLightContent();
-        }
+        $ionicPlatform.ready(function () {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleLightContent();
+            }
+        });
+    })
+    .constant('ApiEndpoint', {
+        url: 'http://54.153.166.126:8080/fhir'
+    })
+
+// Identify App
+.config(['$ionicAppProvider', function ($ionicAppProvider) {
+    // Identify app
+    $ionicAppProvider.identify({
+        // The App ID for the server
+        app_id: 'c2d7bfa0',
+        // The API key all services will use for this app
+        api_key: '640cde306be230e9dc2c9305f7465cc159d93e1187586d0f'
     });
-})
-.constant('ApiEndpoint', {
-    url: 'http://54.153.166.126:8080/fhir'
-})
+}])
 
 .config(function ($stateProvider, $urlRouterProvider) {
 

@@ -17,10 +17,11 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-service-core/ionic-core.js"></script>
 
     <script src="lib/ion-autocomplete/dist/ion-autocomplete.js"></script>
     <script src="lib/angular-messages/angular-messages.js"></script>
-    
+
 
     <!-- cordova script (this wilal be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -31,7 +32,7 @@
     <script src="js/services.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/utils.js"></script>
-    
+
 </head>
 
 <body ng-app="fhiraccenture">
@@ -48,11 +49,32 @@
       have templates inline in this html file if you'd like).
     -->
     <ion-nav-view></ion-nav-view>
-    
-    <script id="templates/form-errors.html" type="text/ng-template">  
-      <div class="form-error" ng-message="required">This field is required</div>
-    </script>  
-    
+
+    <script id="templates/form-errors.html" type="text/ng-template">
+        <div class="form-error" ng-message="required">This field is required</div>
+    </script>
+
+    <script id="errormodal.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">Error</h1>
+            </ion-header-bar>
+            <ion-content>
+                <div class="list">
+                    <div class="item" style="text-align:center;" >
+                        {{errorMessage}}
+                        <br/>
+                        <button type="submit" class="button button-positive" ng-click="closeModal()" style="margin-top: 30px;">
+                            Close
+                        </button>
+                        
+                    </div>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+
+
 </body>
 
 </html>
