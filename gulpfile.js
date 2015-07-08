@@ -56,7 +56,7 @@ gulp.task('git-check', function(done) {
 
 gulp.task('add-proxy', function() {
   return replace({
-    regex: "http://54.153.166.126:8080/fhir",
+    regex: "http://54.153.177.226:8080/fhir",
     replacement: "http://localhost:8100/fhir",
     paths: replaceFiles,
     recursive: false,
@@ -67,7 +67,7 @@ gulp.task('add-proxy', function() {
 gulp.task('remove-proxy', function() {
   return replace({
     regex: "http://localhost:8100/fhir",
-    replacement: "http://54.153.166.126:8080/fhir",
+    replacement: "http://54.153.177.226:8080/fhir",
     paths: replaceFiles,
     recursive: false,
     silent: false,

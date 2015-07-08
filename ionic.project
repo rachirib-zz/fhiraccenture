@@ -4,7 +4,7 @@
   "proxies": [
     {
       "path": "/fhir",
-      "proxyUrl": "http://54.153.166.126:8080/fhir"
+      "proxyUrl": "http://54.153.177.226:8080/fhir"
     }
   ]
 }
