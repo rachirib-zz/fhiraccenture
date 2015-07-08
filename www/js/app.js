@@ -23,7 +23,7 @@ angular.module('fhiraccenture', ['ionic', 'ion-autocomplete', 'ionic.utils', 'ng
         });
     })
     .constant('ApiEndpoint', {
-        url: 'http://localhost:8100/fhir'
+        url: 'http://54.153.177.226:8080/fhir'
     })
 
 // Identify App
